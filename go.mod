@@ -3,6 +3,7 @@ module github.com/wal-g/wal-g
 go 1.13
 
 require (
+	github.com/Azure/azure-storage-blob-go v0.11.0 // indirect
 	github.com/DATA-DOG/godog v0.7.14-0.20190529133509-96731eaefa46
 	github.com/DataDog/zstd v1.4.4
 	github.com/Microsoft/go-winio v0.4.14 // indirect
