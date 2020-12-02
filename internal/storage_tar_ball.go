@@ -82,6 +82,7 @@ func (tarBall *StorageTarBall) startUpload(name string, crypter crypto.Crypter) 
 	uploader.waitGroup.Add(1)
 	go func() {
 		defer uploader.waitGroup.Done()
+		tracelog.InfoLogger.Printf("uploading %s", path)
 
 		err := uploader.Upload(path, NewNetworkLimitReader(pipeReader))
 		if compressingError, ok := err.(CompressAndEncryptError); ok {
