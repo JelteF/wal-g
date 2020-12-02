@@ -82,7 +82,7 @@ func (tarBall *StorageTarBall) startUpload(name string, crypter crypto.Crypter) 
 	uploader.waitGroup.Add(1)
 	go func() {
 		defer uploader.waitGroup.Done()
-		tracelog.InfoLogger.Printf("uploading %s", path)
+		tracelog.InfoLogger.Printf("startUpload go-routine start uploading %s", path)
 
 		err := uploader.Upload(path, NewNetworkLimitReader(pipeReader))
 		if compressingError, ok := err.(CompressAndEncryptError); ok {
@@ -95,6 +95,7 @@ func (tarBall *StorageTarBall) startUpload(name string, crypter crypto.Crypter) 
 			tracelog.ErrorLogger.FatalfOnError("Failed to close pipe: %v", err)
 			tracelog.ErrorLogger.Fatalf("Unable to continue the backup process because of the loss of a part %d.\n", tarBall.partNumber)
 		}
+		tracelog.InfoLogger.Printf("startUpload go-routine finished uploading %s", path)
 	}()
 
 	var writerToCompress io.WriteCloser = pipeWriter
